@@ -11,7 +11,15 @@ const authMiddleware = require('./authMiddleware');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
+// --- CONFIGURAÇÃO DE CORS CORRIGIDA ---
+// Define de qual URL sua API pode aceitar pedidos.
+const corsOptions = {
+  origin: 'https://projeto-ufjf-cpgen.vercel.app', // A URL do seu site na Vercel
+  optionsSuccessStatus: 200 
+};
+app.use(cors(corsOptions));
+// ------------------------------------
+
 app.use(express.json());
 
 const JWT_SECRET = process.env.JWT_SECRET;
@@ -297,3 +305,4 @@ app.patch('/api/tarefas/:id/status', async (req, res) => {
 app.listen(PORT, () => {
  console.log(`Servidor rodando na porta ${PORT}`);
 });
+
