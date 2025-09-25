@@ -1,5 +1,7 @@
-// /frontend/pages/servicos.js (Versão Limpa)
 (function() {
+    // URL da sua API online
+    const API_URL = 'https://gestao-api-aluno.onrender.com';
+
     const token = localStorage.getItem('token');
     if (!token) { window.location.href = 'login.html'; return; }
 
@@ -8,7 +10,7 @@
 
     async function fetchAPI(endpoint, options = {}) {
         const defaultOptions = { headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` } };
-        const response = await fetch(`http://127.0.0.1:3001/api${endpoint}`, { ...defaultOptions, ...options });
+        const response = await fetch(`${API_URL}/api${endpoint}`, { ...defaultOptions, ...options }); // <-- ALTERADO AQUI
         if (!response.ok) {
             const errData = await response.json();
             throw new Error(errData.error || 'Falha na comunicação com a API.');
@@ -74,10 +76,8 @@
         const action = button.dataset.action;
         if (action) updateTaskStatus(taskId, action === 'iniciar' ? 'Iniciada' : action === 'finalizar' ? 'Finalizada' : 'Recebida');
     });
-
-    // "Escutador" que espera o aviso do app.js para recarregar as tarefas
+    
     window.addEventListener('tarefaCriada', loadTasks);
-
-    // Carrega as tarefas quando a página é aberta
+    
     loadTasks();
 })();

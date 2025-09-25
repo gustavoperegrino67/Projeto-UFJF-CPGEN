@@ -1,11 +1,13 @@
 function initRelatoriosPage() {
+    // URL da sua API online
+    const API_URL = 'https://gestao-api-aluno.onrender.com';
+
     const token = localStorage.getItem('token');
     if (!token) { window.location.href = 'login.html'; return; }
 
     const payload = JSON.parse(atob(token.split('.')[1]));
     const isGestor = payload.papel === 1;
 
-    // --- Seletores ---
     const form = document.getElementById('relatorio-form');
     const localSelect = document.getElementById('local-atendimento');
     const dataInput = document.getElementById('data-atendimento');
@@ -16,10 +18,9 @@ function initRelatoriosPage() {
     const loadHistoryButton = document.getElementById('load-history-button');
     const historyContainer = document.getElementById('history-container');
 
-    // --- Funções ---
     async function fetchAPI(endpoint, options = {}) {
         const defaultOptions = { headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` } };
-        const response = await fetch(`http://127.0.0.1:3001/api${endpoint}`, { ...defaultOptions, ...options });
+        const response = await fetch(`${API_URL}/api${endpoint}`, { ...defaultOptions, ...options }); // <-- ALTERADO AQUI
         const data = await response.json();
         if (!response.ok) { throw new Error(data.error || 'Falha na comunicação com a API.'); }
         return data;
@@ -36,7 +37,6 @@ function initRelatoriosPage() {
         } catch (error) { console.error('Erro ao carregar locais:', error); }
     }
 
-    // --- Lógica do Novo Formulário (Apenas para Gestor) ---
     if (isGestor) {
         const addLocalCard = document.querySelector('.card.gestor-only');
         if (addLocalCard) addLocalCard.classList.remove('hidden');
@@ -55,7 +55,7 @@ function initRelatoriosPage() {
                 localFeedbackMessage.style.color = 'green';
                 localFeedbackMessage.textContent = 'Local adicionado com sucesso!';
                 newLocalNameInput.value = '';
-                await carregarLocais(); // Atualiza a lista de locais no formulário de cima!
+                await carregarLocais();
             } catch (error) {
                 localFeedbackMessage.style.color = 'red';
                 localFeedbackMessage.textContent = error.message;
@@ -63,7 +63,6 @@ function initRelatoriosPage() {
         });
     }
 
-    // --- Lógica Existente ---
     form.addEventListener('submit', async (event) => {
         event.preventDefault();
         successMessage.textContent = '';

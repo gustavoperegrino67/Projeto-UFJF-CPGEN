@@ -1,4 +1,7 @@
 (function() {
+    // URL da sua API online
+    const API_URL = 'https://gestao-api-aluno.onrender.com';
+
     const token = localStorage.getItem('token');
     if (!token) {
         window.location.href = 'login.html';
@@ -7,7 +10,7 @@
 
     async function renderChart() {
         try {
-            const response = await fetch('http://127.0.0.1:3001/api/dashboard/stats', { // <-- CORREÇÃO AQUI
+            const response = await fetch(`${API_URL}/api/dashboard/stats`, { // <-- ALTERADO AQUI
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             const stats = await response.json();

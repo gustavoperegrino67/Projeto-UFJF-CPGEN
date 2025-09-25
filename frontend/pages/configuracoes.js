@@ -1,4 +1,7 @@
 function initConfiguracoesPage() {
+    // URL da sua API online
+    const API_URL = 'https://gestao-api-aluno.onrender.com';
+
     const token = localStorage.getItem('token');
     if (!token) { window.location.href = 'login.html'; return; }
 
@@ -12,7 +15,7 @@ function initConfiguracoesPage() {
 
     async function fetchAPI(endpoint, options = {}) {
         const defaultOptions = { headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` } };
-        const response = await fetch(`http://127.0.0.1:3001/api${endpoint}`, { ...defaultOptions, ...options });
+        const response = await fetch(`${API_URL}/api${endpoint}`, { ...defaultOptions, ...options }); // <-- ALTERADO AQUI
         const data = await response.json();
         if (!response.ok) { throw new Error(data.error || 'Falha na comunicação com a API.'); }
         return data;
