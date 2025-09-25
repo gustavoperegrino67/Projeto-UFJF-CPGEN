@@ -1,0 +1,40 @@
+<div class="card">
+    <h2>Enviar Relatório Diário</h2>
+    <form id="relatorio-form">
+        <div class="input-group">
+            <label for="data-atendimento">Data do Atendimento</label>
+            <input type="date" id="data-atendimento" required>
+        </div>
+        <div class="input-group">
+            <label for="local-atendimento">Local de Atendimento</label>
+            <select id="local-atendimento" required>
+                <option value="">Carregando locais...</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label for="descricao">Descrição do Trabalho</label>
+            <textarea id="descricao" rows="6" required></textarea>
+        </div>
+        <button type="submit">Enviar Relatório</button>
+    </form>
+    <p id="success-message" style="color: green; margin-top: 1rem;"></p>
+</div>
+
+<!-- NOVO FORMULÁRIO PARA GESTORES -->
+<div class="card gestor-only hidden" style="margin-top: 2rem;">
+    <h3>Gerenciar Locais de Atendimento</h3>
+    <form id="add-local-form">
+        <div class="input-group">
+            <label for="new-local-name">Nome do Novo Local</label>
+            <input type="text" id="new-local-name" required>
+        </div>
+        <button type="submit">Adicionar Local</button>
+    </form>
+    <p id="local-feedback-message" style="margin-top: 1rem; font-weight: bold;"></p>
+</div>
+
+<div class="card" style="margin-top: 2rem;">
+    <h2>Histórico de Relatórios</h2>
+    <button id="load-history-button">Carregar Histórico</button>
+    <div id="history-container" style="margin-top: 1.5rem;"></div>
+</div>

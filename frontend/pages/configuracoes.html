@@ -1,0 +1,79 @@
+<div class="card">
+    <h2>Configurações do Setor</h2>
+    <div class="user-management">
+        <h3>Cadastrar Novo Funcionário</h3>
+        <form id="create-user-form">
+            <div class="input-group">
+                <label for="nome">Nome Completo</label>
+                <input type="text" id="nome" required>
+            </div>
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" required>
+            </div>
+            <div class="input-group">
+                <label for="senha">Senha Provisória</label>
+                <input type="password" id="senha" required>
+            </div>
+            <div class="input-group">
+                <label for="papel">Cargo (Papel)</label>
+                <select id="papel" required>
+                    <option value="">Selecione um cargo</option>
+                    <option value="2">Comum</option>
+                    <option value="1">Gestor</option>
+                </select>
+            </div>
+            <button type="submit">Cadastrar Usuário</button>
+        </form>
+        <p id="feedback-message" style="margin-top: 1rem; font-weight: bold;"></p>
+    </div>
+</div>
+<div class="card" style="margin-top: 2rem;">
+    <h3>Funcionários do Setor</h3>
+    <table class="user-table">
+        <thead>
+            <tr>
+                <th>Nome Completo</th>
+                <th>Email</th>
+                <th>Cargo</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody id="user-list-body"></tbody>
+    </table>
+</div>
+<!-- MODAL DE EDIÇÃO ATUALIZADO -->
+<div id="edit-user-modal-backdrop" class="modal-backdrop">
+    <div class="modal">
+        <div class="modal-header">
+            <h2>Editar Usuário</h2>
+            <button id="close-edit-modal-button" class="close-button">&times;</button>
+        </div>
+        <form id="edit-user-form">
+            <input type="hidden" id="edit-user-id">
+            <div class="input-group">
+                <label for="edit-nome">Nome Completo</label>
+                <input type="text" id="edit-nome" required>
+            </div>
+            <div class="input-group">
+                <label for="edit-email">Email</label>
+                <input type="email" id="edit-email" required>
+            </div>
+            <div class="input-group">
+                <label for="edit-papel">Cargo (Papel)</label>
+                <select id="edit-papel" required>
+                    <option value="2">Comum</option>
+                    <option value="1">Gestor</option>
+                </select>
+            </div>
+            <hr style="margin: 2rem 0; border-color: var(--border-color); border-style: solid; border-width: 1px 0 0 0;">
+            <div class="input-group">
+                <label for="edit-senha">Nova Senha</label>
+                <input type="password" id="edit-senha" placeholder="Deixe em branco para não alterar">
+            </div>
+            <button type="submit">Salvar Alterações</button>
+        </form>
+        <p id="edit-feedback-message" style="margin-top: 1rem; font-weight: bold;"></p>
+    </div>
+</div>
