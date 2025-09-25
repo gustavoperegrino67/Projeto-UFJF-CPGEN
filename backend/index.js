@@ -16,11 +16,10 @@ app.use(express.json());
 
 const JWT_SECRET = process.env.JWT_SECRET;
 const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'sistema_gestao',
-    password: process.env.DB_PASSWORD,
-    port: 5433,
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
 
 // --- ROTAS PÚBLICAS (Acessíveis sem token) ---
@@ -295,6 +294,6 @@ app.patch('/api/tarefas/:id/status', async (req, res) => {
 
 
 // --- INICIAR SERVIDOR ---
-app.listen(PORT, '127.0.0.1', () => {
-    console.log(`Servidor rodando em http://127.0.0.1:${PORT}`);
+app.listen(PORT, () => {
+ console.log(`Servidor rodando na porta ${PORT}`);
 });
